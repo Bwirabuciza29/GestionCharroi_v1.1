@@ -58,7 +58,7 @@ export const useUserStore = defineStore("users", {
         data.append("prenom_a", user.prenom_a);
         data.append("email_a", user.email_a);
         data.append("phone_a", user.phone_a);
-        data.append("Id_adm", user.Id_adm);
+        data.append("id_adm", user.id_adm);
         data.append("adresse", user.adresse);
         const response = await axios.post(
           "http://localhost/PROJETTUTORE/api/useradmin/modifier/?user=emmanuel&mdp=isc",
@@ -72,10 +72,10 @@ export const useUserStore = defineStore("users", {
         console.error(err);
       }
     },
-    async deleteUser(Id_adm) {
+    async deleteUser(id_adm) {
       try {
         let f = new FormData();
-        f.append("Id_adm", Id_adm);
+        f.append("id_adm", id_adm);
         const response = await axios.post(
           "http://localhost/PROJETTUTORE/api/useradmin/supprimer/?user=emmanuel&mdp=isc",
           f,

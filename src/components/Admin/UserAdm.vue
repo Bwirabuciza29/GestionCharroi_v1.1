@@ -5,7 +5,7 @@
     :rows="data"
     :hide-header="mode === 'grid'"
     :columns="columns"
-    row-key="Id_adm"
+    row-key="id_adm"
     :grid="mode == 'grid'"
     :filter="filter"
     v-model:pagination="pagination"
@@ -62,7 +62,7 @@
             size="sm"
             color="red"
             icon="delete"
-            @click="deleteUser(props.row.Id_adm)"
+            @click="deleteUser(props.row.id_adm)"
           />
         </div>
       </q-td>
@@ -94,14 +94,13 @@
           <q-list>
             <q-item>
               <q-item-section>
-                <q-item-label class="q-pb-xs">Id</q-item-label>
-                <q-input dense outlined v-model="user.Id_adm" disable />
+                <q-item-label class="q-pb-xs">id</q-item-label>
+                <q-input dense outlined v-model="user.id_adm" disable />
               </q-item-section>
             </q-item>
             <q-item>
               <q-item-section>
                 <q-item-label class="q-pb-xs">Catégorie</q-item-label>
-                <!-- <q-input dense outlined v-model="user.Id_cat" /> -->
                 <q-select :options="les_cat" dense outlined v-model="Id_cat" />
               </q-item-section>
             </q-item>
@@ -167,7 +166,7 @@ export default defineComponent({
     const stor = useCatStore();
     // End call stors
     const filter = ref("");
-    const Id_adm = ref("");
+    const id_adm = ref("");
     const Id_cat = ref(null);
     const nom_a = ref("");
     const prenom_a = ref("");
@@ -268,9 +267,9 @@ export default defineComponent({
       }
     }
 
-    async function deleteUser(Id_adm) {
-      console.log("Deleting User with id", Id_adm);
-      store.deleteUser(Id_adm).then((res) => {
+    async function deleteUser(id_adm) {
+      console.log("Deleting User with id", id_adm);
+      store.deleteUser(id_adm).then((res) => {
         console.log(res);
       });
     }
@@ -283,7 +282,7 @@ export default defineComponent({
 
     return {
       les_cat,
-      Id_adm,
+      id_adm,
       Id_cat,
       nom_a,
       prenom_a,
