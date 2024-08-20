@@ -29,7 +29,7 @@ const routes = [
           },
           {
             path: "/Child2",
-            component: () => import("pages/Anonymat/AddSessions.vue"),
+            component: () => import("pages/gestionCharroi/AllAgent.vue"),
           },
           {
             path: "/Child3",

@@ -71,7 +71,7 @@
             <q-item-section>Dashboard</q-item-section>
           </q-item>
           <q-item
-            to=""
+            to="/Child2"
             exact
             clickable
             v-ripple
