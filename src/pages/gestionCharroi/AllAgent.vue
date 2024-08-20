@@ -137,7 +137,7 @@
               <q-item>
                 <q-item-section>
                   <q-item-label class="q-pb-xs">Noms Complet</q-item-label>
-                  <q-input dense outlined v-model="agent.Noms" />
+                  <q-input dense outlined v-model="agent.noms" />
                 </q-item-section>
               </q-item>
               <q-item>
@@ -283,9 +283,8 @@
             >
               <div class="text-center"></div>
               <div class="text-center">
-                <p class="text-gray-500 leading-relaxed">Office de Routes</p>
-                <p class="font-semibold leading-relaxed">Ass. ALEXANDRE</p>
-                <p class="text-gray-500 leading-relaxed">
+                <!-- <p class="text-gray-500 leading-relaxed">Office de Routes</p> -->
+                <p class="text-gray-500 leading-relaxed align-center">
                   Goma,Nord-Kivu @2024
                 </p>
 
@@ -337,6 +336,7 @@ export default defineComponent({
     const columns = ref([
       {
         name: "matricule",
+        required: true,
         align: "left",
         label: "Matricule",
         field: "matricule",
@@ -409,16 +409,16 @@ export default defineComponent({
 
     function addAgent() {
       addFlag.value = true;
-      agent.value = {};
+      agent.value = {}; // On réinitialise l'agent pour un ajout
+      console.log("Ajout d'un nouvel agent"); // Vérifiez si la fonction est appelée
       addEditAgent.value = true;
     }
 
     function editAgent(val) {
       addFlag.value = false;
-      agent.value = val;
-      console.log(agent.value);
+      agent.value = { ...val }; // Copie les valeurs de l'agent sélectionné
+      console.log("Modification de l'agent", agent.value); // Vérifiez les données chargées
       agent.value.photo = "http://localhost/PROJETTUTORE/images/" + val.photo;
-      console.log(val);
       addEditAgent.value = true;
     }
 
@@ -473,7 +473,7 @@ export default defineComponent({
       mode,
       columns,
       viewToggle: ref(false),
-      addEditAgent: ref(false),
+      addEditAgent,
       viewAgent,
       selectedAgent,
       openModal,
