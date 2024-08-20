@@ -1,7 +1,7 @@
 <template>
   <q-table
     class="min-w-full border-gray-200 square"
-    title="Utilisateurs ayant accès à la Connexion"
+    title="Nos Utilisateurs Ayant accès à la Connexion"
     :rows="data"
     :hide-header="mode === 'grid'"
     :columns="columns"
@@ -76,7 +76,7 @@
     >
       <q-card-section>
         <div class="text-h6 q-px-md">
-          {{ addFlag ? "Ajouter" : "Editer" }}
+          {{ addFlag ? "Ajouter Accès" : "Editer l'Accès" }}
           <q-btn
             round
             flat
@@ -94,14 +94,19 @@
           <q-list>
             <q-item>
               <q-item-section>
-                <q-item-label class="q-pb-xs">Id</q-item-label>
+                <q-item-label class="q-pb-xs">id</q-item-label>
                 <q-input dense outlined v-model="log.id_psw" disable />
               </q-item-section>
             </q-item>
             <q-item>
               <q-item-section>
                 <q-item-label class="q-pb-xs">Utilisateur</q-item-label>
-                <q-select :options="les_log" dense outlined v-model="Id_adm" />
+                <q-select
+                  :options="les_users"
+                  dense
+                  outlined
+                  v-model="Id_adm"
+                />
               </q-item-section>
             </q-item>
             <q-item>
@@ -136,7 +141,7 @@ export default defineComponent({
   name: "NosUsers",
   setup() {
     // Le Var select
-    const les_log = ref([]);
+    const les_users = ref([]);
     // end var
     const store = useLogStore();
     const stor = useUserStore();
@@ -153,7 +158,7 @@ export default defineComponent({
       {
         name: "nom_a",
         align: "left",
-        label: "Nom User",
+        label: "Nom",
         field: "nom_a",
         sortable: true,
       },
@@ -181,14 +186,14 @@ export default defineComponent({
       {
         name: "designation",
         align: "left",
-        label: "Type Compte",
+        label: "Designation",
         field: "designation",
         sortable: true,
       },
       {
         name: "psw",
         align: "left",
-        label: "PSW",
+        label: "Mot de passe",
         field: "psw",
         sortable: true,
       },
@@ -204,7 +209,7 @@ export default defineComponent({
     const pagination = ref({ rowsPerPage: 10 });
 
     function addLog() {
-      console.log("addUser method called");
+      console.log("addLog");
       addFlag.value = true;
       log.value = {};
       addEditLog.value = true;
@@ -217,19 +222,16 @@ export default defineComponent({
       addEditLog.value = true;
     }
     // SELECTS FETCHS
-    // select categories
+    // select utilisateurs
     stor.fetchUser().then((result) => {
       result.forEach((t) => {
-        les_log.value.push({ value: t.Id_adm, label: t.nom_a });
+        les_users.value.push({ value: t.Id_adm, label: t.nom_a });
       });
     });
-    // end
     // ENREGISTRER ET MODIFIER USERS
     async function saveLog() {
-      if (Id_adm.value) {
-        log.value.Id_adm = Id_adm.value.value;
-      }
-      console.log("saving Loggers", log.value);
+      log.value.Id_adm = Id_adm.value.value;
+      console.log("saving Log", log.value);
       if (addFlag.value) {
         store.addLog(log.value).then((res) => {
           console.log(res);
@@ -242,7 +244,7 @@ export default defineComponent({
     }
 
     async function deleteLog(id_psw) {
-      console.log("Deleting Loggers with id", id_psw);
+      console.log("Deleting Log with id", id_psw);
       store.deleteLog(id_psw).then((res) => {
         console.log(res);
       });
@@ -255,7 +257,7 @@ export default defineComponent({
     const data = computed(() => store.logs);
 
     return {
-      les_log,
+      les_users,
       id_psw,
       Id_adm,
       psw,

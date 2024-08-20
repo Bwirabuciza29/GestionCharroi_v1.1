@@ -32,7 +32,7 @@ export const useLogStore = defineStore("logs", {
     async addLog(log) {
       try {
         let data = new FormData();
-        data.append("Id_adm", log.Id_adm);
+        data.append("id_adm", log.id_adm);
         data.append("psw", log.psw);
         const response = await axios.post(
           "http://localhost/PROJETTUTORE/api/alllog/enregistrer/?user=emmanuel&mdp=isc",
