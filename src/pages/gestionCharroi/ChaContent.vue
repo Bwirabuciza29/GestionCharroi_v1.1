@@ -149,6 +149,11 @@
   </div>
   <div class="-mt-4">
     <InscEt />
+    <ul>
+      <li>Banane</li>
+      <li>Manioc</li>
+      <li>Mais</li>
+    </ul>
   </div>
 </template>
 
