@@ -436,7 +436,7 @@ export default defineComponent({
         });
       }
     }
-    // SUPPRIMER ETUDIANT
+    // SUPPRIMER AGENT
     async function deleteAgent(val) {
       store.deleteAgent(val).then((res) => {
         console.log(res);

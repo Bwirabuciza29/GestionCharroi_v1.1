@@ -5,12 +5,12 @@
     </div>
     <q-card class="px-6 mx-auto shadow-lg rounded-lg overflow-hidden">
       <q-table
-        class="min-w-full border-gray-200 square"
+        class="custom-table"
         title="Nos Vehicules"
         :rows="data"
         :hide-header="mode === 'grid'"
         :columns="columns"
-        row-key="id"
+        row-key="matricule"
         :grid="mode == 'grid'"
         :filter="filter"
         v-model:pagination="pagination"
@@ -77,7 +77,7 @@
                 size="sm"
                 color="red"
                 icon="delete"
-                @click="deleteVehicule(props.row.id)"
+                @click="deleteVehicule(props.row)"
               />
             </div>
           </q-td>
@@ -308,10 +308,9 @@ export default defineComponent({
         });
       }
     }
-
-    async function deleteVehicule(id) {
-      console.log("Deleting Vehicule with id", id);
-      store.deleteVehicule(id).then((res) => {
+    // SUPPRIMER VEHICULE
+    async function deleteVehicule(val) {
+      store.deleteVehicule(val).then((res) => {
         console.log(res);
       });
     }
