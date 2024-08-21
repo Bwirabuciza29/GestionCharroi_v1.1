@@ -50,6 +50,16 @@
             </q-tooltip>
           </q-btn>
         </template>
+        <template v-slot:body-cell-photo="props">
+          <q-td :props="props">
+            <q-avatar>
+              <img
+                class="object-cover"
+                :src="'http://localhost/PROJETTUTORE' + props.row.photo"
+              />
+            </q-avatar>
+          </q-td>
+        </template>
         <template v-slot:body-cell-action="props">
           <q-td :props="props">
             <div class="q-gutter-sm">
@@ -191,23 +201,36 @@ export default defineComponent({
     const mode = ref("list");
     const columns = ref([
       {
-        name: "id",
+        name: "photo",
         align: "left",
-        label: "Id",
-        field: "id",
+        field: "photo",
         sortable: true,
       },
       {
-        name: "idAgent",
+        name: "matricule",
+        align: "left",
+        label: "Matricule",
+        field: "matricule",
+        sortable: true,
+      },
+      {
+        name: "noms",
         align: "left",
         label: "Agent",
-        field: "idAgent",
+        field: "noms",
+        sortable: true,
+      },
+      {
+        name: "agent_category",
+        align: "left",
+        label: "Categorie",
+        field: "agent_category",
         sortable: true,
       },
       {
         name: "designation",
         align: "left",
-        label: "Designation",
+        label: "Vehicule",
         field: "designation",
         sortable: true,
       },
@@ -226,10 +249,17 @@ export default defineComponent({
         sortable: true,
       },
       {
-        name: "category",
+        name: "vehicule_category",
         align: "left",
         label: "Categorie",
-        field: "category",
+        field: "vehicule_category",
+        sortable: true,
+      },
+      {
+        name: "type_carburant",
+        align: "left",
+        label: "Type Carburant",
+        field: "type_carburant",
         sortable: true,
       },
       {
@@ -266,8 +296,8 @@ export default defineComponent({
     // end
     // ENREGISTRER ET MODIFIER VEHICULES
     async function saveVehicule() {
-      agent.value.idAgent = idAgent.value.value;
-      console.log("saving agent", agent.value);
+      vehicule.value.idAgent = idAgent.value.value;
+      console.log("saving agent", vehicule.value);
       if (addFlag.value) {
         store.addVehicule(vehicule.value).then((res) => {
           console.log(res);
