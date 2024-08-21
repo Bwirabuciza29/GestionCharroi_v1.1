@@ -85,7 +85,7 @@
             <q-item-section>Gestion Agent</q-item-section>
           </q-item>
           <q-item
-            to=""
+            to="/Child3"
             exact
             clickable
             v-ripple

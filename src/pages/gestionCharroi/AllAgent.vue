@@ -284,7 +284,7 @@
               <div class="text-center"></div>
               <div class="text-center">
                 <!-- <p class="text-gray-500 leading-relaxed">Office de Routes</p> -->
-                <p class="text-gray-500 leading-relaxed align-center">
+                <p class="text-gray-500 leading-relaxed text-center">
                   Goma,Nord-Kivu @2024
                 </p>
 

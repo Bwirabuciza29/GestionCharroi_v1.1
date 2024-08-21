@@ -33,7 +33,7 @@ const routes = [
           },
           {
             path: "/Child3",
-            component: () => import("pages/Anonymat/DashExam.vue"),
+            component: () => import("pages/gestionCharroi/GestionVehicule.vue"),
           },
           {
             path: "/Child4",

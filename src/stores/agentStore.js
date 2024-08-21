@@ -21,15 +21,12 @@ export const useAgentStore = defineStore("agents", {
             headers: { "Content-Type": "application/json" },
           }
         );
-        console.log("Fetched Agent", response.data.response);
-        this.agents = Array.isArray(response.data.response)
-          ? response.data.response
-          : [];
+        console.log("Fetched agent", response.data.response);
+        this.agents = response.data.response;
+        return response.data.response;
       } catch (err) {
         this.error = err;
         console.error(err);
-      } finally {
-        this.loading = false;
       }
     },
 
