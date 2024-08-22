@@ -69,10 +69,10 @@ export const useMouveStore = defineStore("mouves", {
         console.error(err);
       }
     },
-    async deleteMouve(obj) {
+    async deleteMouve(id) {
       try {
         let f = new FormData();
-        f.append("id", obj.id);
+        f.append("id", id);
         const response = await axios.post(
           "http://localhost/PROJETTUTORE/api/mouvementvh/supprimer/?user=emmanuel&mdp=isc",
           f,

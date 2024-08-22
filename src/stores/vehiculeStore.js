@@ -72,10 +72,10 @@ export const useVehiculeStore = defineStore("vehicules", {
         console.error(err);
       }
     },
-    async deleteVehicule(obj) {
+    async deleteVehicule(id) {
       try {
         let f = new FormData();
-        f.append("id", obj.id);
+        f.append("id", id);
         const response = await axios.post(
           "http://localhost/PROJETTUTORE/api/vehicule/supprimer/?user=emmanuel&mdp=isc",
           f,

@@ -9,7 +9,7 @@
         :rows="datas"
         :hide-header="mode === 'grid'"
         :columns="columns"
-        row-key="nom"
+        row-key="id"
         :grid="mode == 'grid'"
         :filter="filter"
         v-model:pagination="pagination"
@@ -62,6 +62,16 @@
             </q-tooltip>
           </q-toggle>
         </template>
+        <template v-slot:body-cell-photo="props">
+          <q-td :props="props">
+            <q-avatar>
+              <img
+                class="object-cover"
+                :src="'http://localhost/PROJETTUTORE' + props.row.photo"
+              />
+            </q-avatar>
+          </q-td>
+        </template>
         <template v-slot:body-cell-action="props">
           <q-td :props="props">
             <div class="q-gutter-sm">
@@ -79,7 +89,7 @@
                 size="sm"
                 color="red"
                 icon="delete"
-                @click="deleteMouve(props.row)"
+                @click="deleteMouve(props.row.id)"
               />
             </div>
           </q-td>
@@ -119,7 +129,7 @@
               <q-item>
                 <q-item-section>
                   <q-item-label class="q-pb-xs">Vehicule</q-item-label>
-                  <q-select :options="les_vh" dense outlined v-model="id" />
+                  <q-select :options="les_vh" dense outlined v-model="idVeh" />
                 </q-item-section>
               </q-item>
               <q-item>
@@ -130,7 +140,7 @@
               </q-item>
               <q-item>
                 <q-item-section>
-                  <q-item-label class="q-pb-xs">Trajet</q-item-label>
+                  <q-item-label class="q-pb-xs">Trajet en Km</q-item-label>
                   <q-input dense outlined v-model="mouve.trajet" />
                 </q-item-section>
               </q-item>
@@ -140,22 +150,16 @@
                   <q-input dense outlined v-model="mouve.consommation" />
                 </q-item-section>
               </q-item>
-              <!-- <q-item>
-                <q-item-section>
-                  <q-item-label class="q-pb-xs">Genre</q-item-label>
-                  <q-select
-                    :options="['M', 'F']"
-                    behavior="menu"
-                    dense
-                    outlined
-                    v-model="student.Genre"
-                  />
-                </q-item-section>
-              </q-item> -->
               <q-item>
                 <q-item-section>
                   <q-item-label class="q-pb-xs">Type Carburant</q-item-label>
-                  <q-input dense outlined v-model="mouve.type_carburant" />
+                  <q-select
+                    :options="['Mazout/Gasoil', 'Essence']"
+                    behavior="menu"
+                    dense
+                    outlined
+                    v-model="mouve.type_carburant"
+                  />
                 </q-item-section>
               </q-item>
               <q-item>
@@ -201,127 +205,118 @@
 
 <script>
 import { defineComponent, ref, onMounted, computed } from "vue";
-import { useInscStore } from "src/stores/inscStore";
-import { useOptionsStore } from "src/stores/optionStore";
-import { usePromotionsStore } from "src/stores/promoStore";
-import { useAnneeStore } from "src/stores/anneeStore";
-// import { useStore } from "src/stores/store";
+import { useMouveStore } from "src/stores/mouvStore";
+import { useVehiculeStore } from "src/stores/vehiculeStore";
 
 export default defineComponent({
-  name: "StudentManagement",
+  name: "MouvementManagement",
   setup() {
     const printModal = () => {
       window.print();
     };
     // Les Vars Selects
-    const les_opt = ref([]);
-    const les_prom = ref([]);
-    const les_annee = ref([]);
+    const les_vh = ref([]);
 
     // end vars
-    const stores = useOptionsStore();
-    const storer = usePromotionsStore();
-    const storee = useAnneeStore();
-    const store = useInscStore();
-    // const store = useStore();
+    const stores = useMouveStore();
+    const storer = useVehiculeStore();
 
     const filter = ref("");
-    const nom = ref("");
-    const postnom = ref("");
-    const prenom = ref("");
-    const genre = ref("");
-    const lieu_naissance = ref("");
-    const date_naissance = ref("");
-    const id_quartier = ref("");
-    const id_avenue = ref("");
-    const id_option = ref(null);
-    const id_promotion = ref(null);
-    const id_annee = ref(null);
-    const photo = ref("");
-    const student = ref({});
-    const matricule = ref("");
-    const addEditInscription = ref(false);
+    const destination = ref("");
+    const trajet = ref("");
+    const consommation = ref("");
+    const type_carburant = ref("");
+    const dateSortie = ref("");
+    const dateRetour = ref("");
+    const idVeh = ref(null);
+    const id = ref("");
+    const mouve = ref({});
+    const addEditMouve = ref(false);
     const addFlag = ref(true);
     const mode = ref("list");
-    const selectedStudent = ref(null);
-    const viewStudent = ref(false);
     const columns = ref([
-      {
-        name: "matriculeEt",
-        align: "left",
-        label: "Matricule",
-        field: "matriculeEt",
-        sortable: true,
-      },
-      {
-        name: "Nom",
-        required: true,
-        label: "Nom",
-        align: "left",
-        field: "Nom",
-        sortable: true,
-      },
-      {
-        name: "Postnom",
-        align: "left",
-        label: "Postnom",
-        field: "Postnom",
-        sortable: true,
-      },
-      {
-        name: "Prenom",
-        align: "left",
-        label: "Prenom",
-        field: "Prenom",
-        sortable: true,
-      },
-      {
-        name: "Genre",
-        align: "left",
-        label: "Genre",
-        field: "Genre",
-        sortable: true,
-      },
-      {
-        name: "LieuNaissance",
-        align: "left",
-        label: "Lieu de Naissance",
-        field: "LieuNaissance",
-        sortable: true,
-      },
-      {
-        name: "DateNaissance",
-        align: "left",
-        label: "Date de Naissance",
-        field: "DateNaissance",
-        sortable: true,
-      },
-      {
-        name: "desOption",
-        align: "left",
-        label: "Option",
-        field: "desOption",
-        sortable: true,
-      },
-      {
-        name: "desProm",
-        align: "left",
-        label: "Promotion",
-        field: "desProm",
-        sortable: true,
-      },
-      {
-        name: "anneeAc",
-        align: "left",
-        label: "Année Académiqe",
-        field: "anneeAc",
-        sortable: true,
-      },
       {
         name: "photo",
         align: "left",
-        label: "Photo",
         field: "photo",
+        sortable: true,
+      },
+      {
+        name: "matricule",
+        align: "left",
+        label: "Matricule",
+        field: "matricule",
+        sortable: true,
+      },
+      {
+        name: "noms",
+        required: true,
+        label: "Chauffeur",
+        align: "left",
+        field: "noms",
+        sortable: true,
+      },
+      {
+        name: "designation",
+        align: "left",
+        label: "Vehicule",
+        field: "designation",
+        sortable: true,
+      },
+      {
+        name: "marque",
+        align: "left",
+        label: "Marque Vehicule",
+        field: "marque",
+        sortable: true,
+      },
+      {
+        name: "numP",
+        align: "left",
+        label: "Numero du Plaque",
+        field: "numP",
+        sortable: true,
+      },
+      {
+        name: "destination",
+        align: "left",
+        label: "Destination",
+        field: "destination",
+        sortable: true,
+      },
+      {
+        name: "trajet",
+        align: "left",
+        label: "Trajet",
+        field: "trajet",
+        sortable: true,
+      },
+      {
+        name: "consommation",
+        align: "left",
+        label: "Consommation",
+        field: "consommation",
+        sortable: true,
+      },
+      {
+        name: "mouvement_type_carburant",
+        align: "left",
+        label: "Carburant tupe",
+        field: "mouvement_type_carburant",
+        sortable: true,
+      },
+      {
+        name: "dateSortie",
+        align: "left",
+        label: "Date Sortie",
+        field: "dateSortie",
+        sortable: true,
+      },
+      {
+        name: "dateRetour",
+        align: "left",
+        label: "Date Retour",
+        field: "dateRetour",
         sortable: true,
       },
       {
@@ -332,117 +327,84 @@ export default defineComponent({
         sortable: true,
       },
     ]);
-    const openModal = (s) => {
-      viewStudent.value = true;
-      selectedStudent.value = s;
-      console.log(selectedStudent.value);
-    };
+
     const pagination = ref({ rowsPerPage: 10 });
 
-    function addStudent() {
+    function addMouve() {
       addFlag.value = true;
-      student.value = {};
-      addEditInscription.value = true;
+      mouve.value = {};
+      addEditMouve.value = true;
     }
 
-    function editStudent(val) {
+    function editMouve(val) {
       addFlag.value = false;
-      student.value = val;
-      console.log(student.value);
-      student.value.photo =
-        "http://localhost/GESTION_ANONYMAT/images/" + val.photo;
+      mouve.value = val;
+      console.log(mouve.value);
       console.log(val);
-      addEditInscription.value = true;
+      addEditMouve.value = true;
     }
     // SELECTS FETCHS
     // select option
-    stores.fetchOptions().then((result) => {
+    storer.fetchVehicule().then((result) => {
       result.forEach((t) => {
-        les_opt.value.push({ value: t.id, label: t.desOption });
+        les_vh.value.push({ value: t.id, label: t.designation });
       });
     });
-    // select promotion
-    storer.fetchPromotions().then((result) => {
-      result.forEach((p) => {
-        les_prom.value.push({ value: p.id, label: p.desProm });
-      });
-    });
-    //select annee
-    storee.fetchAnnee().then((result) => {
-      result.forEach((a) => {
-        les_annee.value.push({ value: a.id, label: a.anneeAc });
-      });
-    });
-
     // End Fetch Select
-    // ENREGISTRER ET MODIFIER ETUDIANT
-    async function saveStudent() {
-      student.value.id_quartier = id_quartier.value;
-      student.value.id_avenue = id_avenue.value;
-      student.value.id_option = id_option.value.value;
-      student.value.id_promotion = id_promotion.value.value;
-      student.value.id_annee = id_annee.value.value;
-      console.log("Saving Student", student.value);
+    // ENREGISTRER ET MODIFIER MOUVEMENT
+    async function saveMouve() {
+      mouve.value.idVeh = idVeh.value.value;
+      console.log("Saving Mouvement", mouve.value);
       if (addFlag.value) {
-        console.log(student.value);
-        store.addInscription(student.value).then((res) => {
+        console.log(mouve.value);
+        stores.addMouve(mouve.value).then((res) => {
           console.log(res);
         });
       } else {
-        store.updateInscription(student.value).then((res) => {
+        stores.updateMouve(mouve.value).then((res) => {
           console.log(res);
         });
       }
     }
     // SUPPRIMER ETUDIANT
-    async function deleteStudent(val) {
-      store.deleteInscription(val).then((res) => {
+    async function deleteMouve(id) {
+      console.log("Deleting Mouve with id", id);
+      stores.deleteMouve(id).then((res) => {
         console.log(res);
       });
     }
 
     onMounted(() => {
-      store.fetchInscriptions();
+      stores.fetchMouve();
     });
 
-    const datas = computed(() => store.inscriptions);
+    const datas = computed(() => stores.mouves);
     console.log(datas.value);
 
     return {
-      les_opt,
-      les_prom,
-      les_annee,
-      addEditInscription,
-      student,
+      les_vh,
+      addEditMouve,
+      mouve,
       addFlag,
-      store,
+      stores,
       filter,
-      matricule,
-      nom,
-      postnom,
-      prenom,
-      genre,
-      lieu_naissance,
-      date_naissance,
-      photo,
-      id_quartier,
-      id_avenue,
-      id_option,
-      id_promotion,
-      id_annee,
+      id,
+      idVeh,
+      destination,
+      trajet,
+      consommation,
+      type_carburant,
+      dateSortie,
+      dateRetour,
       datas,
       pagination,
-      saveStudent,
-      editStudent,
-      deleteStudent,
-      addStudent,
+      saveMouve,
+      editMouve,
+      deleteMouve,
+      addMouve,
       mode,
       columns,
       viewToggle: ref(false),
-      addEditStudent: ref(false),
-      viewStudent,
-      selectedStudent,
-      openModal,
       printModal,
     };
   },
