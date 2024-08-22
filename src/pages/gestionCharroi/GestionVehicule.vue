@@ -314,9 +314,8 @@ export default defineComponent({
         console.log(res);
       });
     }
-
-    onMounted(() => {
-      store.fetchVehicule();
+    onMounted(async () => {
+      await store.fetchVehicule();
     });
 
     const data = computed(() => store.vehicules);
