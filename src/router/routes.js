@@ -37,7 +37,7 @@ const routes = [
           },
           {
             path: "/Child4",
-            component: () => import("pages/Anonymat/DashCote.vue"),
+            component: () => import("pages/gestionCharroi/VehiculeMouve.vue"),
           },
           {
             path: "/Child5",
