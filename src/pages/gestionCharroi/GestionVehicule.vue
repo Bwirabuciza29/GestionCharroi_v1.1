@@ -288,7 +288,7 @@ export default defineComponent({
     }
     // SELECTS FETCHS
     // select agents
-    stor.fetchAgents().then((result) => {
+    stor.fetchChauffeur().then((result) => {
       result.forEach((t) => {
         les_agents.value.push({ value: t.id, label: t.noms });
       });
