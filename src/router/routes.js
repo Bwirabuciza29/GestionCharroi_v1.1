@@ -58,11 +58,11 @@ const routes = [
             component: () => import("pages/gestionStock/StockContent.vue"),
           },
           {
-            path: "/Child2",
-            component: () => import("pages/Anonymat/AddSessions.vue"),
+            path: "/stock1",
+            component: () => import("pages/gestionStock/AddSessions.vue"),
           },
           {
-            path: "/Child3",
+            path: "/stock2",
             component: () => import("pages/Anonymat/DashExam.vue"),
           },
           {
