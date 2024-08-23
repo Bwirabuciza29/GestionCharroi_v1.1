@@ -59,7 +59,7 @@ const routes = [
           },
           {
             path: "/stock1",
-            component: () => import("pages/gestionStock/AddSessions.vue"),
+            component: () => import("pages/gestionStock/GestionPiece.vue"),
           },
           {
             path: "/stock2",
