@@ -366,6 +366,7 @@ export default defineComponent({
       reparation,
       addFlag,
       store,
+      storer,
       filter,
       id,
       idAgent,

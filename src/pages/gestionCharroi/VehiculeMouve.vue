@@ -387,6 +387,7 @@ export default defineComponent({
       mouve,
       addFlag,
       stores,
+      storer,
       filter,
       id,
       idVeh,
