@@ -147,49 +147,17 @@
       </div>
     </div>
   </div>
-  <div class="-mt-4"></div>
+  <div class="-mt-4">
+    <MyPiece />
+  </div>
 </template>
-
 <script>
-// import { ref, computed, onMounted } from "vue";
-// import { useInscStore } from "src/stores/inscStore";
-// import { useTeacherStore } from "src/stores/EnsStore";
-// import { useOptionsStore } from "src/stores/optionStore";
+import MyPiece from "components/gestionPieces/MyPiece.vue";
 
-// import InscEt from "src/pages/Admin/InscEt.vue";
-// export default {
-//   components: { InscEt },
-//   created() {},
-//   setup() {
-//     const store = useInscStore();
-//     const stoore = useTeacherStore();
-//     const stor = useOptionsStore();
+import { defineComponent } from "vue";
 
-//     const activeMenu = ref(null);
-
-//     const toggleMenu = (index) => {
-//       activeMenu.value = activeMenu.value === index ? null : index;
-//     };
-//     onMounted(() => {
-//       store.fetchInscriptions();
-//       stoore.fetchTeachers();
-//       stor.fetchOptions();
-//     });
-//     const datas = computed(() => store.inscriptions);
-//     console.log(datas.value);
-//     const lesInsc = computed(() => store.optionsLength);
-//     const lesTeacher = computed(() => stoore.teachersLength);
-//     const loptions = computed(() => stor.optionsLength);
-//     return {
-//       lesInsc,
-//       lesTeacher,
-//       loptions,
-//       store,
-//       datas,
-//       activeMenu,
-//       toggleMenu,
-//     };
-//   },
-// };
+export default defineComponent({
+  watch: {},
+  components: { MyPiece },
+});
 </script>
-

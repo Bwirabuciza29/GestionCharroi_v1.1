@@ -68,6 +68,7 @@
             </q-item-section>
             <q-item-section>Dashboard</q-item-section>
           </q-item>
+          <q-separator spaced />
           <q-item
             to="/Pieces"
             exact
@@ -81,34 +82,6 @@
               <q-icon name="shopping_cart_checkout" />
             </q-item-section>
             <q-item-section>Gestion Pièces</q-item-section>
-          </q-item>
-          <q-item
-            to="/Stock2"
-            exact
-            clickable
-            v-ripple
-            :active="link === 'stock'"
-            @click="link = 'stock'"
-            :class="{ 'my-menu-link': link === 'stock' }"
-          >
-            <q-item-section avatar>
-              <q-icon name="menu" />
-            </q-item-section>
-            <q-item-section>Gestion Stock</q-item-section>
-          </q-item>
-
-          <q-separator spaced />
-          <q-item
-            clickable
-            v-ripple
-            :active="link === 'help'"
-            @click="link = 'help'"
-            :class="{ 'my-menu-link': link === 'help' }"
-          >
-            <q-item-section avatar>
-              <q-icon name="help" />
-            </q-item-section>
-            <q-item-section>Aide</q-item-section>
           </q-item>
         </q-list>
       </div>
