@@ -55,7 +55,7 @@
 
         <q-list class="rounded-borders text-black">
           <q-item
-            to="/Stock1"
+            to="/Stock"
             exact
             clickable
             v-ripple
