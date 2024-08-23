@@ -69,7 +69,7 @@
             <q-item-section>Dashboard</q-item-section>
           </q-item>
           <q-item
-            to="/Stock2"
+            to="/Pieces"
             exact
             clickable
             v-ripple
