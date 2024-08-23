@@ -63,16 +63,9 @@ const routes = [
           },
           {
             path: "/stock2",
-            component: () => import("pages/Anonymat/DashExam.vue"),
+            component: () => import("pages/gestionStock/AllPieces.vue"),
           },
-          {
-            path: "/Child4",
-            component: () => import("pages/Anonymat/DashCote.vue"),
-          },
-          {
-            path: "/Child5",
-            component: () => import("pages/Anonymat/TabContent.vue"),
-          },
+
           // Add more child routes as needed
         ],
       },

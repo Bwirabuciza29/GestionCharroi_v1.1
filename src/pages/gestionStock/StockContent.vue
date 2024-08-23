@@ -148,7 +148,7 @@
     </div>
   </div>
   <div class="-mt-4">
-    <InscEt />
+ 
   </div>
 </template>
 
