@@ -8,12 +8,36 @@
       </div>
       <!-- Categorie Piece -->
       <div class="q-pa-sm">
-        <CatPiece />
+        <div class="q-pa-md">
+          <q-list bordered class="rounded-borders">
+            <q-expansion-item
+              switch-toggle-side
+              expand-separator
+              icon="perm_identity"
+              label="Catégories Pièces"
+            >
+              <q-card>
+                <CatPiece />
+              </q-card>
+            </q-expansion-item>
+          </q-list>
+          <q-list bordered class="rounded-borders mt-4">
+            <q-expansion-item
+              default-opened
+              switch-toggle-side
+              expand-separator
+              icon="perm_identity"
+              label="Fiche de Stock Pièces"
+            >
+              <q-card>
+                <AddPiece />
+              </q-card>
+            </q-expansion-item>
+          </q-list>
+        </div>
       </div>
       <!-- Ajouter Piece -->
-      <div class="q-pa-sm">
-        <AddPiece />
-      </div>
+      <div class="q-pa-sm"></div>
     </div>
   </div>
 </template>
