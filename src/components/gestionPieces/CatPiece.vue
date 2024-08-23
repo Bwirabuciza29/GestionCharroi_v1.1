@@ -1,7 +1,7 @@
 <template>
   <q-table
     class="min-w-full border-gray-200 square"
-    title="Toutes Les Options"
+    title="Nos Categories"
     :rows="data"
     :hide-header="mode === 'grid'"
     :columns="columns"
@@ -12,7 +12,7 @@
   >
     <template v-slot:top-right="props">
       <q-btn
-        @click="addOption"
+        @click="addCategory"
         flat
         size="lg"
         color="primary"
@@ -54,7 +54,7 @@
             size="sm"
             color="primary"
             icon="edit"
-            @click="editOption(props.row)"
+            @click="editCategory(props.row)"
           />
           <q-btn
             dense
@@ -62,13 +62,13 @@
             size="sm"
             color="red"
             icon="delete"
-            @click="deleteOption(props.row.id)"
+            @click="deleteCategory(props.row.id)"
           />
         </div>
       </q-td>
     </template>
   </q-table>
-  <q-dialog v-model="addEditOption" :maximized="$q.platform.is.mobile">
+  <q-dialog v-model="addEditCategory" :maximized="$q.platform.is.mobile">
     <q-card
       :style="
         $q.platform.is.desktop ? { width: '500px', 'max-width': '50vw' } : {}
@@ -76,7 +76,7 @@
     >
       <q-card-section>
         <div class="text-h6 q-px-md">
-          {{ addFlag ? "Ajouter Option" : "Editer Option" }}
+          {{ addFlag ? "Ajouter Category" : "Editer Category" }}
           <q-btn
             round
             flat
@@ -90,12 +90,12 @@
       </q-card-section>
       <q-separator class="q-px-md" inset></q-separator>
       <q-card-section class="q-pt-md">
-        <q-form class="q-gutter-md" @submit.prevent="saveOption">
+        <q-form class="q-gutter-md" @submit.prevent="saveCategory">
           <q-list>
             <q-item>
               <q-item-section>
                 <q-item-label class="q-pb-xs">Designation Option</q-item-label>
-                <q-input dense outlined v-model="desOption" />
+                <q-input dense outlined v-model="designation" />
               </q-item-section>
             </q-item>
           </q-list>
@@ -116,24 +116,24 @@
 
 <script>
 import { defineComponent, ref, onMounted, computed } from "vue";
-import { useOptionsStore } from "src/stores/optionStore";
+import { useCategoryStore } from "src/stores/categoryStore";
 
 export default defineComponent({
-  name: "NosOptions",
+  name: "NosCategory",
   setup() {
-    const store = useOptionsStore();
+    const store = useCategoryStore();
     const filter = ref("");
-    const desOption = ref("");
-    const option = ref({ id: null, desOption: "" });
-    const addEditOption = ref(false);
+    const designation = ref("");
+    const category = ref({ id: null, designation: "" });
+    const addEditCategory = ref(false);
     const addFlag = ref(true);
     const mode = ref("list");
     const columns = ref([
       {
-        name: "desOption",
+        name: "designation",
         align: "left",
-        label: "Designation Option",
-        field: "desOption",
+        label: "Categorie Pièce",
+        field: "designation",
         sortable: true,
       },
       {
@@ -146,63 +146,63 @@ export default defineComponent({
     ]);
     const pagination = ref({ rowsPerPage: 10 });
 
-    function addOption() {
-      option.value = { id: null, desOption: "" };
+    function addCategory() {
+      category.value = { id: null, designation: "" };
       addFlag.value = true;
-      addEditOption.value = true;
+      addEditCategory.value = true;
     }
 
-    function editOption(val) {
-      desOption.value = val.desOption;
-      option.value = { id: val.id, desOption: desOption.value };
+    function editCategory(val) {
+      designation.value = val.designation;
+      category.value = { id: val.id, designation: designation.value };
       console.log(val);
-      console.log(option.value);
+      console.log(category.value);
       addFlag.value = false;
-      addEditOption.value = true;
+      addEditCategory.value = true;
     }
 
-    async function saveOption() {
-      console.log("Saving option", desOption.value);
+    async function saveCategory() {
+      console.log("Saving category", designation.value);
       if (addFlag.value) {
-        store.addOption(desOption.value).then((res) => {
+        store.addCategory(designation.value).then((res) => {
           console.log(res);
         });
       } else {
-        option.value.desOption = desOption.value;
-        store.updateOption(option.value).then((res) => {
+        category.value.designation = designation.value;
+        store.editCategory(designation.value).then((res) => {
           console.log(res);
         });
-        addEditOption.value = false;
+        addEditCategory.value = false;
       }
     }
 
-    async function deleteOption(id) {
-      console.log("Deleting option with id", id);
-      store.deleteOption(id).then((res) => {
+    async function deleteCategory(id) {
+      console.log("Deleting Category with id", id);
+      store.deleteCategory(id).then((res) => {
         console.log(res);
       });
     }
 
     onMounted(() => {
-      store.fetchOptions();
+      store.fetchCategory();
     });
 
-    const data = computed(() => store.options);
+    const data = computed(() => store.categorys);
     const loptions = computed(() => store.optionsLength);
 
     return {
       filter,
-      desOption,
-      addEditOption,
+      designation,
+      addEditCategory,
       addFlag,
       mode,
       columns,
       data,
       pagination,
-      addOption,
-      editOption,
-      saveOption,
-      deleteOption,
+      addCategory,
+      editCategory,
+      saveCategory,
+      deleteCategory,
       loptions,
     };
   },
