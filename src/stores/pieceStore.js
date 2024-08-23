@@ -34,7 +34,7 @@ export const usePieceStore = defineStore("pieces", {
     async addPiece(stock) {
       try {
         let data = new FormData();
-        data.append("idCat", idCat.Nom);
+        data.append("idCat", stock.idCat);
         data.append("designation", stock.designation);
         data.append("quantite", stock.quantite);
         data.append("dateEntree", stock.dateEntree);

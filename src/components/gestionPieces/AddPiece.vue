@@ -146,7 +146,13 @@
             <q-item>
               <q-item-section>
                 <q-item-label class="q-pb-xs">Type</q-item-label>
-                <q-input dense outlined v-model="piece.type" />
+                <q-select
+                  :options="['Entree', 'Sortie']"
+                  behavior="menu"
+                  dense
+                  outlined
+                  v-model="piece.type"
+                />
               </q-item-section>
             </q-item>
             <q-item>
@@ -297,7 +303,7 @@ export default defineComponent({
     // ENREGISTRER ET MODIFIER PIECE
     async function savePiece() {
       piece.value.idCat = idCat.value.value;
-      console.log("Saving Piece", student.value);
+      console.log("Saving Piece", piece.value);
       if (addFlag.value) {
         console.log(piece.value);
         store.addPiece(piece.value).then((res) => {
