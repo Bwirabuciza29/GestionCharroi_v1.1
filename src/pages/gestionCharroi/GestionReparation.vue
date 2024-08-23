@@ -331,8 +331,8 @@ export default defineComponent({
     // End Fetch Select
     // ENREGISTRER ET MODIFIER ETUDIANT
     async function saveReparation() {
-      vehicule.value.idAgent = idAgent.value.value;
-      vehicule.value.idVehicule = idVehicule.value.value;
+      reparation.value.idAgent = idAgent.value.value;
+      reparation.value.idVehicule = idVehicule.value.value;
       console.log("Saving Reparation", reparation.value);
       if (addFlag.value) {
         console.log(reparation.value);
