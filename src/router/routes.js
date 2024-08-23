@@ -41,7 +41,8 @@ const routes = [
           },
           {
             path: "/Child5",
-            component: () => import("pages/Anonymat/TabContent.vue"),
+            component: () =>
+              import("pages/gestionCharroi/GestionReparation.vue"),
           },
           // Add more child routes as needed
         ],
