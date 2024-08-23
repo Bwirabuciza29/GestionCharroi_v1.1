@@ -55,7 +55,7 @@
 
         <q-list class="rounded-borders text-black">
           <q-item
-            to="/st"
+            to="/Stock1"
             exact
             clickable
             v-ripple
@@ -69,7 +69,7 @@
             <q-item-section>Dashboard</q-item-section>
           </q-item>
           <q-item
-            to="/stock1"
+            to="/Stock2"
             exact
             clickable
             v-ripple
@@ -83,7 +83,7 @@
             <q-item-section>Gestion Pièces</q-item-section>
           </q-item>
           <q-item
-            to=""
+            to="/Stock2"
             exact
             clickable
             v-ripple

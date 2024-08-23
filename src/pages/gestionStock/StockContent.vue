@@ -46,7 +46,7 @@
                 </button>
               </div>
             </div>
-            <h3 class="text-4xl font-bold">{{ lesInsc }}</h3>
+            <!-- <h3 class="text-4xl font-bold">{{ lesInsc }}</h3> -->
             <p class="text-gray-500">Denière Entree</p>
           </div>
         </div>
@@ -93,7 +93,7 @@
                 </button>
               </div>
             </div>
-            <h3 class="text-4xl font-bold">{{ lesTeacher }}</h3>
+
             <p class="text-gray-500">Denière Sortie</p>
           </div>
         </div>
@@ -140,16 +140,14 @@
                 </button>
               </div>
             </div>
-            <h3 class="text-4xl font-bold">{{ loptions }}</h3>
+
             <p class="text-gray-500">Denier Sock</p>
           </div>
         </div>
       </div>
     </div>
   </div>
-  <div class="-mt-4">
- 
-  </div>
+  <div class="-mt-4"></div>
 </template>
 
 <script>
