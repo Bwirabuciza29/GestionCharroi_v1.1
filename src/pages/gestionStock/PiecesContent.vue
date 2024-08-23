@@ -17,15 +17,15 @@
     </div>
   </div>
 </template>
-<!--
+
 <script>
-import CatPiece from "components/gestionPiece/CatPiece.vue";
-import AddPiece from "components/gestionPiece/AddPiece.vue";
+import CatPiece from "components/gestionPieces/CatPiece.vue";
+import AddPiece from "components/gestionPieces/AddPiece.vue";
 
 import { defineComponent } from "vue";
 
 export default defineComponent({
   components: { CatPiece, AddPiece },
 });
-</script> -->
+</script>
 
