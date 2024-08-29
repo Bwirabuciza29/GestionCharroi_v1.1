@@ -110,7 +110,7 @@
             <q-item-section avatar>
               <q-icon name="category" />
             </q-item-section>
-            <q-item-section>Mouvements Vehicules</q-item-section>
+            <q-item-section>Carnet de Bord</q-item-section>
           </q-item>
           <q-item
             to="/Child5"

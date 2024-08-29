@@ -1,11 +1,11 @@
 <template>
   <q-page class="q-pa-md w-full px-4">
     <div class="text-2xl font-bold text-center mb-4 p-4 blondy text-white mx-4">
-      Mouvements Vehicules
+      Les Carnets de Bord
     </div>
     <q-card class="px-6 mx-auto shadow-lg rounded-lg overflow-hidden">
       <q-table
-        title="Gestion Mouvements"
+        title="Les Carnets de Bord"
         :rows="datas"
         :hide-header="mode === 'grid'"
         :columns="columns"
