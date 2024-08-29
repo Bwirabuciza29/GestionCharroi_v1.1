@@ -80,6 +80,14 @@
                 outline
                 size="sm"
                 color="primary"
+                icon="visibility"
+                @click="openModal(props.row)"
+              />
+              <q-btn
+                dense
+                outline
+                size="sm"
+                color="primary"
                 icon="edit"
                 @click="editMouve(props.row)"
               />
@@ -200,6 +208,109 @@
         <q-card-actions align="right" class="text-teal"></q-card-actions>
       </q-card>
     </q-dialog>
+    <q-dialog v-model="viewMouvement">
+      <div
+        class="print-me bg-white p-6 rounded-lg shadow-md w-full print:max-w-full print:p-0 max-w-2xl"
+      >
+        <div
+          class="flex flex-col print:flex-row md:flex-row print:justify-center print:items-center text-center items-center justify-between mb-4"
+        >
+          <img
+            src="~assets/logo.jpeg"
+            alt="Logo 1"
+            class="h-14 w-14 mb-4 md:mb-0"
+          />
+          <div class="text-left md:text-center flex-1 mx-4">
+            <h1 class="text-lg font-bold leading-relaxed">OFFICE DES ROUTES</h1>
+            <h2 class="text-md leading-relaxed">NORD-KIVU/GOMA</h2>
+            <a href="http://www.or.org" class="text-blue-600 leading-relaxed"
+              >www.or.org</a
+            >
+          </div>
+          <img
+            src="~assets/logo.jpeg"
+            alt="Logo 2"
+            class="h-14 w-14 mb-4 md:mb-0"
+          />
+        </div>
+        <div
+          class="border-t border-b border-gray-300 py-2 text-center mb-4 justify-between"
+        >
+          <h3 class="text-lg font-bold leading-relaxed">CARNET DE BORD</h3>
+          <span class="text-black font-semibold">
+            PLAQUE:{{ selectMouvement.numP }}</span
+          >
+        </div>
+        <div class="flex flex-wrap text-base leading-relaxed">
+          <!-- Colonne de gauche -->
+          <div
+            class="w-full md:w-1/2 p-4 bg-gray-100 border-r border-gray-300 rounded-l-lg"
+          >
+            <p class="mb-2">
+              <span class="font-semibold">Matricule:</span>
+              {{ selectMouvement.matricule }}
+            </p>
+            <p class="mb-2">
+              <span class="font-semibold">Chauffeur:</span>
+              {{ selectMouvement.noms }}
+            </p>
+            <p class="mb-2">
+              <span class="font-semibold">Libellé :</span>
+              {{ selectMouvement.designation }}
+            </p>
+            <p class="mb-2">
+              <span class="font-semibold">Marque:</span>
+              {{ selectMouvement.marque }}
+            </p>
+            <p class="mb-2">
+              <span class="font-semibold">Plaque N°:</span>
+              {{ selectMouvement.numP }}
+            </p>
+          </div>
+
+          <!-- Colonne de droite -->
+          <div
+            class="w-full md:w-1/2 p-4 bg-gray-100 border-l border-gray-300 rounded-r-lg"
+          >
+            <p class="mb-2">
+              <span class="font-semibold">Destination:</span>
+              {{ selectMouvement.destination }}
+            </p>
+            <p class="mb-2">
+              <span class="font-semibold">Trajet:</span>
+              {{ selectMouvement.trajet }} Km
+            </p>
+            <p class="mb-2">
+              <span class="font-semibold">Consommation:</span>
+              {{ selectMouvement.consommation }} Km
+            </p>
+            <p class="mb-2">
+              <span class="font-semibold">Carburant type:</span>
+              {{ selectMouvement.mouvement_type_carburant }}
+            </p>
+            <p class="mb-2">
+              <span class="font-semibold">Date Retour:</span>
+              {{ selectMouvement.dateSortie }}
+            </p>
+            <p class="mb-2">
+              <span class="font-semibold">Date Sortie:</span>
+              {{ selectMouvement.dateRetour }}
+            </p>
+            <div class="text-center">
+              <p class="text-gray-500 leading-relaxed text-center">
+                Goma, Nord-Kivu @2024
+              </p>
+              <div
+                @click="printModal()"
+                class="no-print-me bg-blue-500 text-white font-semibold mt-4 px-4 py-2 cursor-pointer rounded"
+              >
+                <span>Imprimer</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </q-dialog>
   </q-page>
 </template>
 
@@ -234,6 +345,8 @@ export default defineComponent({
     const addEditMouve = ref(false);
     const addFlag = ref(true);
     const mode = ref("list");
+    const selectMouvement = ref(null);
+    const viewMouvement = ref(false);
     const columns = ref([
       {
         name: "photo",
@@ -327,7 +440,11 @@ export default defineComponent({
         sortable: true,
       },
     ]);
-
+    const openModal = (s) => {
+      viewMouvement.value = true;
+      selectMouvement.value = s;
+      console.log(selectMouvement.value);
+    };
     const pagination = ref({ rowsPerPage: 10 });
 
     function addMouve() {
@@ -406,6 +523,9 @@ export default defineComponent({
       mode,
       columns,
       viewToggle: ref(false),
+      viewMouvement,
+      selectMouvement,
+      openModal,
       printModal,
     };
   },
