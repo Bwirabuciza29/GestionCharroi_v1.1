@@ -17,6 +17,12 @@
       >
         <template v-slot:top-right="props">
           <q-btn
+            label="Voir Liste des Charrois"
+            color="primary"
+            no-caps
+            @click="alert = true"
+          />
+          <q-btn
             @click="addVehicule"
             flat
             size="lg"
@@ -170,6 +176,109 @@
         </q-card-section>
       </q-card>
     </q-dialog>
+    <q-dialog v-model="alert" full-width>
+      <div
+        class="print-me bg-white p-6 rounded-lg shadow-md w-full print:max-w-full print:p-0 max-w-2xl"
+      >
+        <div
+          class="flex flex-col print:flex-row md:flex-row print:justify-center print:items-center text-center items-center justify-between mb-4"
+        >
+          <img
+            src="~assets/logo.jpeg"
+            alt="Logo 1"
+            class="h-14 w-14 mb-4 md:mb-0"
+          />
+          <div class="text-left md:text-center flex-1 mx-4">
+            <h1 class="text-lg font-bold leading-relaxed">OFFICE DES ROUTES</h1>
+            <h2 class="text-md leading-relaxed">NORD-KIVU/GOMA</h2>
+            <a href="http://www.or.org" class="text-blue-600 leading-relaxed"
+              >www.or.org</a
+            >
+          </div>
+          <img
+            src="~assets/logo.jpeg"
+            alt="Logo 2"
+            class="h-14 w-14 mb-4 md:mb-0"
+          />
+        </div>
+        <div class="border-t border-b border-gray-300 py-2 text-center mb-4">
+          <h3 class="text-xl font-bold leading-relaxed">
+            Liste des Charrois Automobiles
+          </h3>
+        </div>
+        <div class="flex no-wrap text-base leading-relaxed">
+          <div v-if="data.length === 0" class="text-center text-gray-500">
+            Aucun charroi disponible
+          </div>
+          <table v-else class="min-w-full bg-white">
+            <thead>
+              <tr>
+                <th
+                  class="px-6 py-3 border-b-2 border-gray-300 text-left leading-4 text-blue-500 tracking-wider"
+                >
+                  Designation
+                </th>
+                <th
+                  class="px-6 py-3 border-b-2 border-gray-300 text-left leading-4 text-blue-500 tracking-wider"
+                >
+                  Marque
+                </th>
+                <th
+                  class="px-6 py-3 border-b-2 border-gray-300 text-left leading-4 text-blue-500 tracking-wider"
+                >
+                  Plaque
+                </th>
+                <th
+                  class="px-6 py-3 border-b-2 border-gray-300 text-left leading-4 text-blue-500 tracking-wider"
+                >
+                  Categorie
+                </th>
+                <th
+                  class="px-6 py-3 border-b-2 border-gray-300 text-left leading-4 text-blue-500 tracking-wider"
+                >
+                  Type Carburant
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr
+                v-for="(item, index) in data"
+                :key="index"
+                class="hover:bg-gray-100"
+              >
+                <td class="px-6 py-4 border-b border-gray-200">
+                  {{ item.designation }}
+                </td>
+                <td class="px-6 py-4 border-b border-gray-200">
+                  {{ item.marque }}
+                </td>
+                <td class="px-6 py-4 border-b border-gray-200">
+                  {{ item.numP }}
+                </td>
+                <td class="px-6 py-4 border-b border-gray-200">
+                  {{ item.vehicule_category }}
+                </td>
+                <td class="px-6 py-4 border-b border-gray-200">
+                  {{ item.type_carburant }}
+                </td>
+              </tr>
+            </tbody>
+            <div clas="flex flex-center items-center justify-between ">
+              <p class="text-gray-500 leading-relaxed text-center">
+                Goma,Nord-Kivu @2024
+              </p>
+
+              <div
+                @click="printModal()"
+                class="no-print-me bg-blue-500 text-white px-4 text-center w-1/2 font-semibold"
+              >
+                <span> Imprimer </span>
+              </div>
+            </div>
+          </table>
+        </div>
+      </div>
+    </q-dialog>
   </q-page>
 </template>
 
@@ -181,6 +290,9 @@ import { useAgentStore } from "src/stores/agentStore";
 export default defineComponent({
   name: "NosVehicules",
   setup() {
+    const printModal = () => {
+      window.print();
+    };
     // Le Var select
     const les_agents = ref([]);
     // end var
@@ -341,6 +453,8 @@ export default defineComponent({
       editVehicule,
       saveVehicule,
       deleteVehicule,
+      alert: ref(false),
+      printModal,
     };
   },
 });
