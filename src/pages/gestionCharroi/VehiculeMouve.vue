@@ -17,6 +17,12 @@
       >
         <template v-slot:top-right="props">
           <q-btn
+            label="Carnet de Bord"
+            color="primary"
+            no-caps
+            @click="alert = true"
+          />
+          <q-btn
             @click="addMouve()"
             flat
             size="lg"
@@ -311,6 +317,121 @@
         </div>
       </div>
     </q-dialog>
+    <!-- CARNET DE BORD -->
+    <q-dialog v-model="alert" full-width>
+      <div
+        class="print-me bg-white p-6 rounded-lg shadow-md w-full print:max-w-full print:p-0 max-w-2xl"
+      >
+        <div
+          class="flex flex-col print:flex-row md:flex-row print:justify-center print:items-center text-center items-center justify-between mb-4"
+        >
+          <img
+            src="~assets/logo.jpeg"
+            alt="Logo 1"
+            class="h-24 w-24 mb-4 md:mb-0"
+          />
+          <div class="text-left md:text-center flex-1 mx-4">
+            <h1 class="text-3xl font-bold leading-relaxed">
+              OFFICE DES ROUTES
+            </h1>
+            <h2 class="text-2xl font-semibold leading-relaxed">
+              CENTRE MATERIEL ROULANT
+            </h2>
+            <h3 class="text-xl font-semibold leading-relaxed">
+              GOMA NORD-KIVU
+            </h3>
+          </div>
+          <img
+            src="~assets/logo.jpeg"
+            alt="Logo 2"
+            class="h-24 w-24 mb-4 md:mb-0"
+          />
+        </div>
+        <div class="border-t border-b border-gray-300 py-2 text-center mb-4">
+          <h3 class="text-xl font-bold leading-relaxed">CARNET DE BORD</h3>
+        </div>
+        <div class="flex no-wrap text-base leading-relaxed">
+          <div v-if="datas.length === 0" class="text-center text-gray-500">
+            Aucun charroi disponible
+          </div>
+          <table v-else class="min-w-full bg-white">
+            <thead>
+              <tr>
+                <th
+                  class="px-6 py-3 border-b-2 border-gray-300 text-left leading-4 text-blue-500 tracking-wider"
+                >
+                  TYPE CHARROI
+                </th>
+                <th
+                  class="px-6 py-3 border-b-2 border-gray-300 text-left leading-4 text-blue-500 tracking-wider"
+                >
+                  NUM PLAQUE
+                </th>
+                <th
+                  class="px-6 py-3 border-b-2 border-gray-300 text-left leading-4 text-blue-500 tracking-wider"
+                >
+                  TRAJET REALISE
+                </th>
+                <th
+                  class="px-6 py-3 border-b-2 border-gray-300 text-left leading-4 text-blue-500 tracking-wider"
+                >
+                  CONSOMMATION
+                </th>
+                <th
+                  class="px-6 py-3 border-b-2 border-gray-300 text-left leading-4 text-blue-500 tracking-wider"
+                >
+                  TYPE CARBURANT
+                </th>
+                <th
+                  class="px-6 py-3 border-b-2 border-gray-300 text-left leading-4 text-blue-500 tracking-wider"
+                >
+                  MARQUE CHARROI
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr
+                v-for="(item, index) in datas"
+                :key="index"
+                class="hover:bg-gray-100"
+              >
+                <td class="px-6 py-4 border-b border-gray-200">
+                  {{ item.designation }}
+                </td>
+                <td class="px-6 py-4 border-b border-gray-200">
+                  {{ item.numP }}
+                </td>
+                <td class="px-6 py-4 border-b border-gray-200">
+                  {{ item.trajet }} km
+                </td>
+                <td class="px-6 py-4 border-b border-gray-200">
+                  {{ item.consommation }} litres
+                </td>
+                <td class="px-6 py-4 border-b border-gray-200">
+                  {{ item.mouvement_type_carburant }}
+                </td>
+                <td class="px-6 py-4 border-b border-gray-200">
+                  {{ item.marque }}
+                </td>
+              </tr>
+            </tbody>
+            <div clas="flex flex-center items-center justify-between ">
+              <p class="text-gray-500 leading-relaxed text-center">
+                Goma,Nord-Kivu @2024
+              </p>
+
+              <div
+                @click="printModal()"
+                class="no-print-me bg-blue-500 text-white px-4 text-center w-1/2 font-semibold"
+              >
+                <span> Imprimer </span>
+              </div>
+            </div>
+          </table>
+        </div>
+      </div>
+    </q-dialog>
+    <!-- Fin Modals -->
   </q-page>
 </template>
 
@@ -526,6 +647,7 @@ export default defineComponent({
       viewMouvement,
       selectMouvement,
       openModal,
+      alert: ref(false),
       printModal,
     };
   },
