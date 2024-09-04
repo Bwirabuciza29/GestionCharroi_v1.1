@@ -58,11 +58,13 @@ export const usePieceStore = defineStore("pieces", {
         data.append("idMouv", stock.idMouv);
         data.append("quantite", stock.quantite);
         data.append("type", stock.type);
+
         const response = await axios.post(
           "http://localhost/PROJETTUTORE/api/stock/modifier/?user=emmanuel&mdp=isc",
           data,
           { headers: { "Content-Type": "multipart/form-data" } }
         );
+
         console.log("Updated Mouvement", response.data);
         await this.fetchPiece();
         return response.data;
