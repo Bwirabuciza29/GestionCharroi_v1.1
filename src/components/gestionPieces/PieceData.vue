@@ -4,7 +4,7 @@
     :rows="datas"
     :hide-header="mode === 'grid'"
     :columns="columns"
-    row-key="id"
+    row-key="idStock"
     :grid="mode == 'grid'"
     :filter="filter"
     v-model:pagination="pagination"
