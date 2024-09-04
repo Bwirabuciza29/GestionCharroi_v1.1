@@ -147,6 +147,7 @@
       </div>
     </div>
   </div>
+  <MeOn />
 </template>
 
 <script>
@@ -154,9 +155,12 @@ import { computed, onMounted } from "vue";
 import { useAgentStore } from "src/stores/agentStore";
 import { useChauStore } from "src/stores/chauStore";
 import { useVehiculeStore } from "src/stores/vehiculeStore";
+import MeOn from "src/pages/gestionCharroi/MeOn.vue";
 
 export default {
-  created() {},
+  components: {
+    MeOn,
+  },
   setup() {
     const store = useAgentStore();
     const stor = useChauStore();
