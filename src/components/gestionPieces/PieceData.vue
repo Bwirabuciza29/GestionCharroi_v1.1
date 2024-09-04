@@ -324,6 +324,13 @@ export default defineComponent({
         sortable: true,
       },
       {
+        name: "idMouvement",
+        align: "left",
+        label: "ID",
+        field: "idMouvement",
+        sortable: true,
+      },
+      {
         name: "action",
         align: "left",
         label: "Action",
