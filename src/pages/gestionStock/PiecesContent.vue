@@ -30,7 +30,7 @@
               label="Fiche de Stock Pièces"
             >
               <q-card>
-                <AddPiece />
+                <PieceData />
               </q-card>
             </q-expansion-item>
           </q-list>
@@ -44,12 +44,12 @@
 
 <script>
 import CatPiece from "components/gestionPieces/CatPiece.vue";
-import AddPiece from "components/gestionPieces/AddPiece.vue";
+import PieceData from "components/gestionPieces/PieceData.vue";
 
 import { defineComponent } from "vue";
 
 export default defineComponent({
-  components: { CatPiece, AddPiece },
+  components: { CatPiece, PieceData },
 });
 </script>
 
