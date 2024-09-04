@@ -204,20 +204,8 @@
           <q-list>
             <q-item>
               <q-item-section>
-                <q-item-label class="q-pb-xs">Id Piece</q-item-label>
-                <q-input dense outlined v-model="piece.id" disable />
-              </q-item-section>
-            </q-item>
-            <q-item>
-              <q-item-section>
-                <q-item-label class="q-pb-xs">Categorie Piece</q-item-label>
-                <q-select :options="les_cats" dense outlined v-model="idCat" />
-              </q-item-section>
-            </q-item>
-            <q-item>
-              <q-item-section>
-                <q-item-label class="q-pb-xs">Designation Piece</q-item-label>
-                <q-input dense outlined v-model="piece.designation" />
+                <q-item-label class="q-pb-xs">Id Mouvement</q-item-label>
+                <q-input dense outlined v-model="piece.idMouv" disable />
               </q-item-section>
             </q-item>
             <q-item>
@@ -235,12 +223,6 @@
                   outlined
                   v-model="piece.type"
                 />
-              </q-item-section>
-            </q-item>
-            <q-item>
-              <q-item-section>
-                <q-item-label class="q-pb-xs">Quantite Mouvement</q-item-label>
-                <q-input dense outlined v-model="piece.quantiteMouv" />
               </q-item-section>
             </q-item>
           </q-list>
@@ -328,19 +310,28 @@ export default defineComponent({
         sortable: true,
       },
       {
+        name: "total",
+        align: "left",
+        label: "Total",
+        field: "total",
+        sortable: true,
+      },
+      {
+        name: "dateStock",
+        align: "left",
+        label: "Date",
+        field: "dateStock",
+        sortable: true,
+      },
+      {
         name: "action",
-        align: "right",
-        label: "Actions",
+        align: "left",
+        label: "Action",
         field: "action",
-        sortable: false,
+        sortable: true,
       },
     ]);
     const pagination = ref({ rowsPerPage: 10 });
-
-    onMounted(async () => {
-      les_cats.value = await stores.getCategories();
-      await store.getAllPieces();
-    });
 
     // Ouvrir la modale d'ajout
     function addPiece() {
@@ -352,7 +343,6 @@ export default defineComponent({
     // Ouvrir la modale de modification
     function editPiece(val) {
       piece.value = { ...val }; // Charger les données existantes
-      idCat.value = les_cats.value.find((cat) => cat.value === val.idCat); // Trouver la catégorie associée
       editPieceDialog.value = true;
     }
     // SELECTS FETCHS
@@ -373,7 +363,6 @@ export default defineComponent({
 
     // Enregistrer les modifications
     async function saveEditedPiece() {
-      piece.value.idCat = idCat.value.value;
       console.log("Saving edited piece", piece.value);
       store.editPiece(piece.value).then((res) => {
         console.log(res);
