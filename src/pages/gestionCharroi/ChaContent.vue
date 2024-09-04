@@ -150,36 +150,30 @@
 </template>
 
 <script>
-import { ref, computed, onMounted } from "vue";
+import { computed, onMounted } from "vue";
 import { useAgentStore } from "src/stores/agentStore";
+import { useChauStore } from "src/stores/chauStore";
 import { useVehiculeStore } from "src/stores/vehiculeStore";
 
 export default {
   created() {},
   setup() {
     const store = useAgentStore();
+    const stor = useChauStore();
     const stoore = useVehiculeStore();
 
-    const activeMenu = ref(null);
-
-    const toggleMenu = (index) => {
-      activeMenu.value = activeMenu.value === index ? null : index;
-    };
     onMounted(() => {
-      store.fetchChauffeur();
       store.fetchMecanicien();
+      stor.fetchChauffeur();
       stoore.fetchVehicule();
     });
-    const lesChauf = computed(() => store.optionsLength);
+    const lesChauf = computed(() => stor.optionsLength);
     const lesMec = computed(() => store.optionsLength);
     const lesVeh = computed(() => stoore.optionsLength);
     return {
       lesChauf,
       lesMec,
       lesVeh,
-      store,
-      activeMenu,
-      toggleMenu,
     };
   },
 };
