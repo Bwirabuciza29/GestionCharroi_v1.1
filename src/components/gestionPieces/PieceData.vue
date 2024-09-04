@@ -205,7 +205,7 @@
             <q-item>
               <q-item-section>
                 <q-item-label class="q-pb-xs">Id Mouvement</q-item-label>
-                <q-input dense outlined v-model="piece.idMouv" disable />
+                <q-input dense outlined v-model="piece.idMouv" />
               </q-item-section>
             </q-item>
             <q-item>
