@@ -46,7 +46,7 @@
                 </button>
               </div>
             </div>
-            <h3 class="text-4xl font-bold">{{ lesInsc }}</h3>
+            <h3 class="text-4xl font-bold">{{ lesChauf }}</h3>
             <p class="text-gray-500">Nombre des Chauffeurs</p>
           </div>
         </div>
@@ -93,7 +93,7 @@
                 </button>
               </div>
             </div>
-            <h3 class="text-4xl font-bold">{{ lesTeacher }}</h3>
+            <h3 class="text-4xl font-bold">{{ lesVeh }}</h3>
             <p class="text-gray-500">Vehicules à l'Actif</p>
           </div>
         </div>
@@ -140,7 +140,7 @@
                 </button>
               </div>
             </div>
-            <h3 class="text-4xl font-bold">{{ loptions }}</h3>
+            <h3 class="text-4xl font-bold">{{ lesMec }}</h3>
             <p class="text-gray-500">Mécaniciens Actifs</p>
           </div>
         </div>
@@ -150,45 +150,38 @@
 </template>
 
 <script>
-// import { ref, computed, onMounted } from "vue";
-// import { useInscStore } from "src/stores/inscStore";
-// import { useTeacherStore } from "src/stores/EnsStore";
-// import { useOptionsStore } from "src/stores/optionStore";
+import { ref, computed, onMounted } from "vue";
+import { useAgentStore } from "src/stores/agentStore";
+import { useVehiculeStore } from "src/stores/vehiculeStore";
 
-// import InscEt from "src/pages/Admin/InscEt.vue";
-// export default {
-//   components: { InscEt },
-//   created() {},
-//   setup() {
-//     const store = useInscStore();
-//     const stoore = useTeacherStore();
-//     const stor = useOptionsStore();
+export default {
+  created() {},
+  setup() {
+    const store = useAgentStore();
+    const stoore = useVehiculeStore();
 
-//     const activeMenu = ref(null);
+    const activeMenu = ref(null);
 
-//     const toggleMenu = (index) => {
-//       activeMenu.value = activeMenu.value === index ? null : index;
-//     };
-//     onMounted(() => {
-//       store.fetchInscriptions();
-//       stoore.fetchTeachers();
-//       stor.fetchOptions();
-//     });
-//     const datas = computed(() => store.inscriptions);
-//     console.log(datas.value);
-//     const lesInsc = computed(() => store.optionsLength);
-//     const lesTeacher = computed(() => stoore.teachersLength);
-//     const loptions = computed(() => stor.optionsLength);
-//     return {
-//       lesInsc,
-//       lesTeacher,
-//       loptions,
-//       store,
-//       datas,
-//       activeMenu,
-//       toggleMenu,
-//     };
-//   },
-// };
+    const toggleMenu = (index) => {
+      activeMenu.value = activeMenu.value === index ? null : index;
+    };
+    onMounted(() => {
+      store.fetchChauffeur();
+      store.fetchMecanicien();
+      stoore.fetchVehicule();
+    });
+    const lesChauf = computed(() => store.optionsLength);
+    const lesMec = computed(() => store.optionsLength);
+    const lesVeh = computed(() => stoore.optionsLength);
+    return {
+      lesChauf,
+      lesMec,
+      lesVeh,
+      store,
+      activeMenu,
+      toggleMenu,
+    };
+  },
+};
 </script>
 

@@ -8,7 +8,7 @@ export const useVehiculeStore = defineStore("vehicules", {
     error: null,
   }),
   getters: {
-    // optionsLength: (state) => state.options.length,
+    optionsLength: (state) => state.vehicules.length,
   },
   actions: {
     async fetchVehicule() {
