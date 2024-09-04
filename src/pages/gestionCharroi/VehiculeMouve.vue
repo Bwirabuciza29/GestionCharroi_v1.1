@@ -604,7 +604,7 @@ export default defineComponent({
         });
       }
     }
-    // SUPPRIMER ETUDIANT
+    // SUPPRIMER MOUVEMENT
     async function deleteMouve(id) {
       console.log("Deleting Mouve with id", id);
       stores.deleteMouve(id).then((res) => {
